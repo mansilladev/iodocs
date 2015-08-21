@@ -113,13 +113,15 @@ block content
                               span.description !{method.description}
                               br
                               br
-                              .container.header(style=Object.keys(method.parameters).length ? undefined : "display:none")
+                              - var noParams = ((Object.keys(method.parameters).length < 1) && !method.request)
+                              .container.header(style=noParams ? "display:none" : undefined)
                                   .row
                                       .col-description.header Description !{method.MethodName}
                                       .location.header Location
                                       .col-type.header Type
                                       .col-parameter.header Value
                                       .col-name.header Parameter
-                              table(id=methodKey, style=Object.keys(method.parameters).length ? undefined : "display:none")
+                              table(id=methodKey, style=noParams ? "display:none": undefined)
                               - if (!method['read-only'])
                                   input(type='submit', id=method.name, value='Try it!', class=methodKey)
+
